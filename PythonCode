@@ -1,1 +1,73 @@
+from tkinter import *
+import datetime
+
+root = Tk()
+root.geometry("600x600+0+0")
+root.resizable(0, 0)
+root.title("Pet Adoption Tracker")
+
+Frame1 = Frame(root, bg="gainsboro")
+Frame1.pack(side=TOP)
+Frame2 = Frame(root)
+Frame2.pack(side=TOP)
+
+var = StringVar()
+
+def add_pet_record():
+    name = name_entry.get()
+    species = species_entry.get()
+    age = age_entry.get()
+    adopter = adopter_entry.get()
+    adoption_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    record = f"Name: {name}\nSpecies: {species}\nAge: {age}\nAdopter: {adopter}\nAdoption Date: {adoption_date}\n"
+    pet_records_text.insert(END, record)
+
+    name_entry.delete(0, END)
+    species_entry.delete(0, END)
+    age_entry.delete(0, END)
+    adopter_entry.delete(0, END)
+
+def clear_pet_records():
+    pet_records_text.delete(1.0, END)
+
+lbl_info = Label(Frame1, font=('Arial', 24, 'bold'), text="PET ADOPTION TRACKER", fg="darkblue", bd=10, anchor='w')
+lbl_info.grid(row=0, column=0)
+
+date = datetime.datetime.now()
+date_info = Label(Frame1, font=('Arial', 16, 'bold'), text=f"Date: {date.strftime('%Y-%m-%d')}", fg="brown", anchor=W)
+date_info.grid(row=1, column=0)
+
+name_label = Label(Frame2, font=('Arial', 14, 'bold'), text="Pet Name", fg="blue", bd=10, anchor='w')
+name_label.grid(row=1, column=0)
+name_entry = Entry(Frame2, font=('Arial', 14, 'bold'), bd=6, insertwidth=4, bg="white", justify='right')
+name_entry.grid(row=1, column=1)
+
+species_label = Label(Frame2, font=('Arial', 14, 'bold'), text="Species", fg="blue", bd=10, anchor='w')
+species_label.grid(row=2, column=0)
+species_entry = Entry(Frame2, font=('Arial', 14, 'bold'), bd=6, insertwidth=4, bg="white", justify='right')
+species_entry.grid(row=2, column=1)
+
+age_label = Label(Frame2, font=('Arial', 14, 'bold'), text="Age", fg="blue", bd=10, anchor='w')
+age_label.grid(row=3, column=0)
+age_entry = Entry(Frame2, font=('Arial', 14, 'bold'), bd=6, insertwidth=4, bg="white", justify='right')
+age_entry.grid(row=3, column=1)
+
+adopter_label = Label(Frame2, font=('Arial', 14, 'bold'), text="Adopter's Name", fg="blue", bd=10, anchor='w')
+adopter_label.grid(row=4, column=0)
+adopter_entry = Entry(Frame2, font=('Arial', 14, 'bold'), bd=6, insertwidth=4, bg="white", justify='right')
+adopter_entry.grid(row=4, column=1)
+
+add_record_button = Button(Frame2, padx=16, pady=8, bd=4, fg="black", font=('Arial', 14, 'bold'), text="Add Record", bg="limegreen",
+                           command=add_pet_record)
+add_record_button.grid(row=5, column=1)
+
+clear_records_button = Button(Frame2, padx=16, pady=8, bd=4, fg="black", font=('Arial', 14, 'bold'), text="Clear Records",
+                              bg="red", command=clear_pet_records)
+clear_records_button.grid(row=6, column=1)
+
+pet_records_text = Text(Frame2, height=10, width=50, font=('Arial', 12))
+pet_records_text.grid(row=7, column=0, columnspan=2)
+
+root.mainloop()
 
